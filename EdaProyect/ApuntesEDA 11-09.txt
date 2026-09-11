@@ -1,0 +1,63 @@
+Apuntes EDA 11/09 T1 
+Diapos: 9- nx 
+
+Un algoritmo esta en el orden n /lineal
+Ese algoritmo a partir de ciertamente no llega a crecer mas que la funcion f(n) 
+
+Pertenece al orden de las funciones constantes
+O(n) 
+(Lineales o menos)
+
+f(n) = 5
+La función 5 pertenece a la funcion de n
+Esta garantizado que a partir de un punto está por debajo. Sí
+
+Quiero dar la cota más ajustada
+
+Ordenes de complejidad, con una sola variable.
+O(1) 	    Constante
+O(log n)    Logarítmico
+O(n)        Lineal
+O(n.log n)  Cuasi-lineal /Algoritmos de ordenación
+O(n^2)      Cuadrático
+
+
+Brief:
+Busqueda Binaria (en vector de elementos ordenados)
+Mirar al medio de la lista, ver si es ese, siguiente, ver si es menor o mayor a de donde estamos
+El numero de iteraciones que da esto es el nº de veces de mitades que puedo formar al dividir entre 2
+
+Asi que se trataria de un Orden Logaritmico, como minimo
+
+En el caso peor, orden logaritmico.
+(e [numero] no pertenece a v [vector]) 
+
+En el caso mejor, si seria la suerte de que el elemento que buscamos sea el primer 
+que hayemos de tajon (primer mitad) pues seria de orden O(n) 
+v[(lenght-1)/2] == e O(n)
+
+FactoriaL: 
+Funcion de busqueda que depende n. Un Bucle for
+O(n)
+
+SumaFactoriales: 
+Numero de iteraciones del bucle más interno
+n*(n/2) = n^2/2 : ("quitamos la constante"): 
+Orden de complejidad: O(n^2) cuadrático.
+-----
+El máximo de las cosas que haga, esa es la complejidad final
+Si es bajo el mismo parámetro
+O(n^2) + O(n) = O(max((n^2,n)) = O(n^2)
+Es decir de verdad de que parametro depende
+
+En el caso de que se realicen cosas de distinto parámetro. Porque dependa de 2 
+O(m^2) + O(n) = O(max((m^2, n)). Se quedaría así!
+
+Luego si fuesen 2 de funciones de orden lineal de distinto parametro quedaría así
+O(max(m,n)) Se podria decir que es Lineal, eso sí, pero realmente significa esto
+
+Pues no sabemos lo que es más.
+ 
+
+
+

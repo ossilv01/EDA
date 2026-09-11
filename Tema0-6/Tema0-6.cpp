@@ -1,32 +1,33 @@
 // Oscar Silva Urbina
-// Usuario del Juez ......
-
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-
+#include <vector>
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
-
-
+int resolver(int datos) {
+    datos = datos * 2;
+    return datos; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 bool resuelveCaso() {
     // leer los datos de la entrada
-
-    if (caso especial)
-        return false;
-
-    TipoSolucion sol = resolver(datos);
-
-    // escribir sol
-
-    return true;
-
+    int nelems;
+    std::cin >> nelems; 
+    
+    if (nelems == -1) return false;
+    else {
+        for (int i = 0; i < nelems; i++) {
+            int elem; 
+            std::cin >> elem; 
+            int sol = resolver(elem);
+            std::cout << sol << " ";
+        }
+        std::cout << std::endl;
+        return true; 
+    }
 }
 
 int main() {

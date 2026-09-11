@@ -1,33 +1,32 @@
 //Oscar Silva Urbina
-
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 
-
-
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
-
-
+float resolver(float datos) {
+    datos = datos * 2;
+    return datos; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 bool resuelveCaso() {
     // leer los datos de la entrada
+    int nelems; 
+    std::cin >> nelems; 
 
     if (!std::cin)
         return false;
 
-    TipoSolucion sol = resolver(datos);
-
-    // escribir sol
-
-
+    for (int i = 0; i < nelems; i++) {
+        float elem;
+        std::cin >> elem; 
+        float sol = resolver(elem);
+        std::cout << sol << " ";
+    }
+    std::cout << std::endl;
     return true;
-
 }
 
 int main() {

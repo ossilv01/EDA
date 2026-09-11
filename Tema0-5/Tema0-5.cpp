@@ -1,4 +1,5 @@
 // Oscar Silva Urbina
+//Coste O(n^2) 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -8,8 +9,6 @@
 int resolver(int datos) {
     //multiplicar por 2 y separar con espacios los elementos de la lista
     datos = datos * 2; 
-    //std::cout << datos << " ";
-
     return datos;
 }
 

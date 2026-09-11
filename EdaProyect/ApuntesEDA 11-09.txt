@@ -64,3 +64,4 @@ Ordenación por burbuja
 Ordenación por lalala
 
 
+Hacer los 0-5, 0-6, 0-7 con vectores 

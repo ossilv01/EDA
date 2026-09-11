@@ -57,7 +57,10 @@ Luego si fuesen 2 de funciones de orden lineal de distinto parametro quedaría a
 O(max(m,n)) Se podria decir que es Lineal, eso sí, pero realmente significa esto
 
 Pues no sabemos lo que es más.
- 
-
+ -----------
+Deberes, hallar que tipo de Coste Son los siguientes: 
+Ordenación por inserción
+Ordenación por burbuja
+Ordenación por lalala
 
 

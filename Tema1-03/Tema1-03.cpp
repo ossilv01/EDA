@@ -4,7 +4,9 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 
+using namespace std;
 
 // función que resuelve el problema
 TipoSolucion resolver(TipoDatos datos) {
@@ -16,7 +18,18 @@ TipoSolucion resolver(TipoDatos datos) {
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
     // leer los datos de la entrada
-
+    int tamvec;
+    cin >> tamvec;
+    vector <int> vector(tamvec);
+    //posición (pivote)
+    int p;
+    cin >> p; 
+    //creamos vector de elementos con cada uno en dicha posicion
+    for (int i = 0; i < vector.size(); i++) {
+        int elem;
+        cin >> elem; 
+        vector[i] = elem;
+    }
 
     TipoSolucion sol = resolver(datos);
     // escribir sol

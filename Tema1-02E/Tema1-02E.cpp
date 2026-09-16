@@ -6,10 +6,11 @@
 #include <vector>
 
 using namespace std;
-// función que resuelve el problema
-//pico
+
 int resolver(vector <int> v, int&npicos, int&nvalles) {
     
+    //margen de -2 por patron o potra encontrada
+    //ahora da 3 vueltas en vez de 5. 
     for (int i = 0; i < v.size()-2; i++) {
         int izq = v[i];
         int medio = 0;
@@ -36,10 +37,11 @@ void resuelveCaso() {
     cin >> ntemperaturas;
     vector <int> lista(ntemperaturas);
 
+    //variables que cambiaremos por referencia en metodo solucion
     int npicos = 0;
     int nvalles = 0; 
 
-    //metemos los valores exactos a la lista
+    //metemos los valores que vamos leyendo a su posición exacta de lista
     for (int i = 0; i < lista.size(); i++) {
         int elem;
         cin >> elem; 

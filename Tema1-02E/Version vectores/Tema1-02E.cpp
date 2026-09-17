@@ -1,41 +1,33 @@
 // Oscar Silva Urbina 
-//Coste actual O(n). 
-//Problema anterior = uso de vectores .Simplficado a int
+//Coste actual O(n). Time Limit
+//Coste deseado O(log n) 
+//Problema = uso de vectores 
 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
 //No duplicar vector, sino coger por referencia. Y constnate para no poder modificar
-int resolver(int v, int&npicos, int&nvalles) {
+int resolver(const vector <int>& v, int&npicos, int&nvalles) {
     
-    //caso especial dinde no hay combinaciones posibles 0
-    // salir
-    if (v < 3) {
-        int fuera;
-        for (int i = 0; i < v; i++) {
-            cin >> fuera; 
-        }
-        return 0; 
-    }
-    //margen de 2 por patron o potra encontrada
-    // >=3
+    //margen de -2 por patron o potra encontrada
     //ahora da 3 vueltas en vez de 5. 
-    int izq, medio, dcha;
-    cin >> izq;
-    cin >> medio; 
-    for (int i = 2; i < v; i++) {
-        //valor que se va actualizando. Avanzando uno a uno
-        cin >> dcha; 
+    for (int i = 0; i < v.size()-2; i++) {
+        int izq = v[i];
+        int medio = 0;
+        if (i + 1 < v.size()) {
+            medio = v[i + 1];
+        }
+        int dcha = 0;
+        if (i + 2 < v.size()) {
+            dcha = v[i + 2];
+        }
 
         if (izq < medio && medio > dcha) npicos++;
         if (izq > medio && medio < dcha) nvalles++;
-
-        //se van delegando los antiguos valores
-        izq = medio; 
-        medio = dcha; 
     }
     return 0;
 }
@@ -44,18 +36,29 @@ int resolver(int v, int&npicos, int&nvalles) {
 // configuración, y escribiendo la respuesta
 
 void resuelveCaso() {
-    // leer los datos de la entrada 
+    // leer los datos de la entrada y creamos lista con huecos x
     int ntemperaturas;
     cin >> ntemperaturas;
+    vector <int> lista(ntemperaturas);
 
     //variables que cambiaremos por referencia en metodo solucion
     int npicos = 0;
     int nvalles = 0; 
-    
-    resolver(ntemperaturas, npicos, nvalles);
-    //no usar endl por coste
-    cout << npicos << " " << nvalles << "\n";
 
+    //metemos los valores que vamos leyendo a su posición exacta de lista
+    for (int i = 0; i < lista.size(); i++) {
+        int elem;
+        cin >> elem; 
+        lista[i] = elem;
+    }
+    
+    resolver(lista, npicos, nvalles);
+    cout << npicos << " " << nvalles;
+
+    //for (int e : lista) {
+    //    cout << e << " ";
+    //}
+    cout << "\n";
 }
 
 int main() {

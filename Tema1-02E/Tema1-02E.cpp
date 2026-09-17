@@ -1,4 +1,6 @@
 // Oscar Silva Urbina 
+//Coste actual O(n). Time Limit
+//Coste deseado O(log n) 
 
 #include <iostream>
 #include <iomanip>
@@ -7,7 +9,8 @@
 
 using namespace std;
 
-int resolver(vector <int> v, int&npicos, int&nvalles) {
+//No duplicar vector, sino coger por referencia. Y constnate para no poder modificar
+int resolver(const vector <int>& v, int&npicos, int&nvalles) {
     
     //margen de -2 por patron o potra encontrada
     //ahora da 3 vueltas en vez de 5. 
@@ -55,9 +58,6 @@ void resuelveCaso() {
     //    cout << e << " ";
     //}
     cout << std::endl;
-    // 
-    //TipoSolucion sol = resolver(datos);
-    // escribir sol
 }
 
 int main() {

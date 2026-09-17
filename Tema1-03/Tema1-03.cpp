@@ -9,8 +9,20 @@
 using namespace std;
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
+int resolver(const vector <int> &v, int &p) {
+    vector <int> menores;
+    vector <int> mayores; 
 
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] <= v[p]) menores.push_back(v[i]);
+        else mayores.push_back(v[i]);
+    }
+    
+    for (int e : menores) std::cout << e << " ";
+    cout << endl;
+    for (int a : mayores) std::cout << a << " ";
+        
+    return 0; 
 
 }
 
@@ -21,7 +33,7 @@ void resuelveCaso() {
     int tamvec;
     cin >> tamvec;
     vector <int> vector(tamvec);
-    //posición (pivote)
+    //punto
     int p;
     cin >> p; 
     //creamos vector de elementos con cada uno en dicha posicion
@@ -31,8 +43,9 @@ void resuelveCaso() {
         vector[i] = elem;
     }
 
-    TipoSolucion sol = resolver(datos);
+    int sol = resolver(vector, p);
     // escribir sol
+    cout << endl; 
 
 
 }

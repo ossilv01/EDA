@@ -1,0 +1,10 @@
+5
+5
+a a b b b
+6
+a b c c c d
+3
+a a a
+0
+3
+ana ana pepe

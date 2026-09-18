@@ -1,25 +1,58 @@
 // Oscar Silva Urbina
-
-
+//Coste total: O(nlogn) 
+// Por uso de metodo sort() que es el coste MAX entre
+// el coste de O(n) por tanto los for de recorrido del vector
+// como el metodo .erase() que tambien recorre el vector de forma lineal
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 
+using namespace std; 
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
+int resolver(vector <string> &v) {
+    if (v.size() <= 0) {
+        return 0; 
+    }
+    sort(v.begin(), v.end());
 
+    string izq = v[0];
+    int tam = v.size();
 
+    for (int i = 1; i < v.size();) {
+        string dcha = v[i];
+        if (izq == dcha) {
+            v.erase(v.begin() + i);
+            tam--;
+        }
+        else if (izq != dcha) {
+            izq = dcha;
+            i++;
+        }
+    }
+    return 0; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
     // leer los datos de la entrada
+    
+    int nelem;
+    cin >> nelem;
+    vector <string> v(nelem);
+    for (int i = 0; i < v.size(); i++) {
+        string text;
+        cin >> text;
+        v[i] = text;
+    }
+    resolver(v);
 
-
-    TipoSolucion sol = resolver(datos);
     // escribir sol
+    for (string a : v) cout << a << " ";
+    cout << "\n";
 
 
 }

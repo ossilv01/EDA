@@ -1,26 +1,32 @@
-// Oscar Silva Urbina
-
+// Oscar Silva Urbina 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 
+using namespace std; 
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
+int resolver(vector<string> &v) {
 
-
+    return 0; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
     // leer los datos de la entrada
+    int nelems; 
+    cin >> nelems; 
+    vector<string> v(nelems); 
+    for (int i = 0; i < v.size(); i++) {
+        cin >> v[i];
+    }
+    for (string a : v) cout << a << " ";
+    cout << "\n";
 
-
-    TipoSolucion sol = resolver(datos);
+    //TipoSolucion sol = resolver(datos);
     // escribir sol
-
-
 }
 
 int main() {

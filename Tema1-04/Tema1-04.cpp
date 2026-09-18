@@ -1,27 +1,48 @@
 // Oscar Silva Urbina 
-
+//Coste O(n^2)
+// TIME LIMIT
+//no utilizar funcion erase, pues coste O(n^2)
 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 
+using namespace std; 
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
-
-
+int resolver(vector <int> &v) {
+    int tam = v.size(); 
+    for (int i = 0; i < v.size();) {
+        if (v[i] % 2 != 0) {
+            v.erase(v.begin() + i);
+            tam--;
+        }
+        //se avanza cuando no se tiene que borrar
+        //porque o sino estariamos avanzando de más
+       else i++;
+    }
+    v.resize(tam);
+    return 0; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
     // leer los datos de la entrada
+    int tamvec; 
+    cin >> tamvec; 
+    vector <int> v(tamvec);
+    for (int i = 0; i < v.size(); i++) {
+        int elem; 
+        cin >> elem; 
+        v[i] = elem; 
+    }
 
-
-    TipoSolucion sol = resolver(datos);
-    // escribir sol
-
-
+   // escribir sol
+   resolver(v);
+   for (int a : v) cout << a << " ";
+   cout << "\n";
 }
 
 int main() {

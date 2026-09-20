@@ -26,6 +26,8 @@ int resolver(vector<string> &v) {
         }
     }       
     v.resize(size);
+
+    return 0; 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

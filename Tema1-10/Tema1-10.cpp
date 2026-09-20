@@ -1,15 +1,31 @@
 // Oscar Silva Urbina 
+////Coste O(n^2) Pues tenemos 2 for anidades que recorren de manera lineal
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <vector>
-
 using namespace std; 
 
 // función que resuelve el problema
 int resolver(vector<string> &v) {
 
-    return 0; 
+    //Caso especial, vacio
+    if (v.size() <= 0) return 0;
+
+    int size = 0; 
+    for (int i = 0; i < v.size(); i++) {
+        bool repetido = false; 
+        for (int j = 0; j < size; j++) {
+            if (v[j] == v[i]) {
+                repetido = true;
+            }
+        }
+        if (!repetido) {
+            v[size] = v[i];
+            size++;
+        }
+    }       
+    v.resize(size);
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -22,11 +38,11 @@ void resuelveCaso() {
     for (int i = 0; i < v.size(); i++) {
         cin >> v[i];
     }
-    for (string a : v) cout << a << " ";
+
+    resolver(v);
+    for (string a : v) cout << a << " ";    
     cout << "\n";
 
-    //TipoSolucion sol = resolver(datos);
-    // escribir sol
 }
 
 int main() {

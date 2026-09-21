@@ -1,7 +1,5 @@
 // Oscar Silva Urbina 
-//Coste O(n^2)
-// TIME LIMIT
-//no utilizar funcion erase, pues coste O(n^2)
+//Coste O(n)
 
 #include <iostream>
 #include <iomanip>
@@ -12,15 +10,12 @@ using namespace std;
 
 // función que resuelve el problema
 int resolver(vector <int> &v) {
-    int tam = v.size(); 
-    for (int i = 0; i < v.size();) {
-        if (v[i] % 2 != 0) {
-            v.erase(v.begin() + i);
-            tam--;
+    int tam = 0;
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] % 2 == 0) {
+            v[tam] = v[i];
+            tam++; 
         }
-        //se avanza cuando no se tiene que borrar
-        //porque o sino estariamos avanzando de más
-       else i++;
     }
     v.resize(tam);
     return 0; 

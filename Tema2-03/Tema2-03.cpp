@@ -9,56 +9,12 @@
 
 using namespace std; 
 
-string resolver(vector<int> const &v) {
-
-    int l = v.size();
-    int tam = l / 2;
-    if (v.size() / 2 == 0) return "nvalores tiene que ser potencia de 2";
-
-    //Creamos sub-vectores con rangos
-    vector<int> izq(v.begin(), v.end() - tam);
-    vector<int> dcha(v.begin() + tam, v.end());
-
-    int minizq = izq[0];
-    int maxdcha = dcha[0];    
-
-    //Busqueda de min lado izq
-    for (int i = 0; i < izq.size(); i++) {
-        if (izq[i] < minizq) minizq = izq[i];
-    }
-    //Busqueda de max lado dcha
-    for (int j = 0; j < dcha.size(); j++) {
-        if (dcha[j] > maxdcha) maxdcha = dcha[j];
-    }
-
-    //Algoritmo de busqueda para verificar condiciones
-    //Vector Parcialmente Ordenado
-    bool F_cond1 = false; 
-    bool F_cond2 = false; 
-
-    int i = 0; 
-    int j = 0;
-    while (i<izq.size() && !F_cond1) {
-        if (izq[i] > maxdcha) F_cond1 = true;
-        else i++;
-    }
-    
-    while (j < dcha.size() && !F_cond2) {
-        if (dcha[j] < minizq) F_cond2 = true;
-        else j++;
-    }
-    
-    if (!F_cond1 && !F_cond2) return "SI";
-    else return "NO";
-}
-
 bool RECParcialmente_ordenado(const vector<int> &v, int ini, int fin, int& min, int& max) {
     int n = fin - ini; 
     //Condiciones base
     if (n == 0) return false;
     if (ini == fin-1) return true;
 
-    //Condicion parada
     //Datos
     int mit = (ini + fin) / 2;
     int minizq = v[ini];
@@ -66,37 +22,17 @@ bool RECParcialmente_ordenado(const vector<int> &v, int ini, int fin, int& min, 
     int maxizq = v[mit-1];
     int mindcha = v[mit];
 
-    ////Busqueda de min lado izq
-    //for (int i = 0; i < mit; i++) {
-    //    if (v[i] < minizq) minizq = v[i];
-    //}
-
-    ////Busqueda max lado izq
-    //for (int i = 0; i < mit; i++) {
-    //    if (v[i] < minizq) minizq = v[i];
-    //}
-
-    ////Busqueda de max lado dcha
-    //for (int j = fin; j > mit; j--) {
-    //    if (v[j] > maxdcha) maxdcha = v[j];
-    //}
-
-    ////Busqueda min lado dcha
-    //for (int j = fin; j > mit; j--) {
-    //    if (v[j] > mindcha) mindcha = v[j];
-    //}
-
-
     //Recursión en ambos lados:
     bool izq = RECParcialmente_ordenado(v,ini,mit,minizq, maxizq);
     bool dcha = RECParcialmente_ordenado(v,mit,fin,mindcha, maxdcha);
     if (izq && dcha) {
         max = maxdcha;
         min = minizq;
-        
-        return true;
+        //Condición que rompe "vector semi ordenado" (6 > 1 && 2 > 1) 
+        if (maxizq > mindcha &&  min > mindcha) return false;
+        else return true; 
     }
-    else return false;
+    else return false; 
 }
 
 bool Parcialmente_ordenado(const vector<int> &v) {

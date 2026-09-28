@@ -63,7 +63,7 @@ bool RECParcialmente_ordenado(const vector<int> &v, int ini, int fin, int& min, 
     int mit = (ini + fin) / 2;
     int minizq = v[ini];
     int maxdcha = v[fin-1];
-    int maxizq = v[0];
+    int maxizq = v[mit-1];
     int mindcha = v[mit];
 
     ////Busqueda de min lado izq

@@ -1,36 +1,65 @@
 //Oscar Silva Urbina
-//caso centinela cuando n = 0; 
+//Coste O(n) = Pues se hace un recorrido lineal cada vez que se revisa para ver si hay 
+// numeros pares. Nos encontrariamos. Recorrido a N, recorrido a N/2, recorrido a N/4 cada vez que se pueda hacer mas pequeño
+//O(n) + O (n/2) + O(n/ 4) + ... = O(n) 
 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <vector>
-//Funcion de valor absoluto:
-#include <cmath>
+
 using namespace std;
 
 
-bool RECcaucasico(vector<int>& v, int ini, int fin, int resultado) {
+bool RECcaucasico(vector<int>& v, int ini, int fin, int &cont) {
     int n = fin - ini;
-    //caso solo 1 elemento:
-    if (n == 0) return false;
-    if (ini == fin) return true;
+    //casos criticos/base
+    if (n == 0) return false; 
+    //1 elemento
+    if (ini == fin-1) return true;
 
+    //rango de busqueda por segmenetos que actualiza
     int mitad = (ini+fin)/2;
-    int inicial = v[0];
-    int final = v[fin-1];
-    //Casos Base/Parada
 
-    cout << ini << " " << fin << " ";
+    //Casos Base/Parada
+    int contador = 0;
+    int contaizq = 0; 
+    int contadcha = 0; 
+
+    //Buscamos pares
+    for (int i = ini; i < fin; i++) {
+        if (v[i] % 2 == 0 && i >= mitad) contadcha++;
+        else if (v[i] % 2 == 0 && i < mitad) contaizq++;
+    }
+    if (contaizq == 0 && contadcha == 0) {
+        return false; 
+    }
+
+   /* for (int i = ini; i < fin; i++) {
+        if (v[i] % 2 == 0) contador++;
+        if (i >= mitad) contadcha++;
+        else contaizq++;
+    }*/
+    //si no hay pares en algun lado (dcho o izq) =  NO ES CAUCASICO
+    //if (contador == 0) return false;
+
     //Comprobacion recursiva
-    bool izq = RECcaucasico(v, ini, mitad, 0);
-    bool dcha = RECcaucasico(v, mitad, fin, 2);
-    return false; 
+    bool izq = RECcaucasico(v, ini, mitad, contaizq);
+    bool dcha = RECcaucasico(v, mitad, fin, contadcha);
+    if (izq && dcha) {
+        int sol = contaizq - contadcha;
+        //valor absoluto
+        if (sol < 0) sol = sol * -1;
+        //condición caucasica
+        if (sol > 2) return false;
+        else return true;
+    }
+    else return false;
 }
 
 bool caucasico(vector<int>& v) {
-    int resultado;
-    return RECcaucasico(v, 0, v.size(), resultado);
+    int contador;
+    return RECcaucasico(v, 0, v.size(), contador);
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

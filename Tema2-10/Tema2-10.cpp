@@ -1,36 +1,15 @@
 //Oscar Silva Urbina
-//caso centinela cuando n = 0; 
+//Solo un impar
 
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <vector>
-//Funcion de valor absoluto:
-#include <cmath>
 using namespace std;
 
+// función que resuelve el problema
+int resolver(const vector<int>& sec, int ini, int fin) {
 
-bool RECcaucasico(vector<int>& v, int ini, int fin, int resultado) {
-    int n = fin - ini;
-    //caso solo 1 elemento:
-    if (n == 0) return false;
-    if (ini == fin) return true;
-
-    int mitad = (ini+fin)/2;
-    int inicial = v[0];
-    int final = v[fin-1];
-    //Casos Base/Parada
-
-    cout << ini << " " << fin << " ";
-    //Comprobacion recursiva
-    bool izq = RECcaucasico(v, ini, mitad, 0);
-    bool dcha = RECcaucasico(v, mitad, fin, 2);
-    return false; 
-}
-
-bool caucasico(vector<int>& v) {
-    int resultado;
-    return RECcaucasico(v, 0, v.size(), resultado);
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -42,13 +21,7 @@ bool resuelveCaso() {
     if (n == 0) return false;
     vector<int> sec(n);
     for (int& e : sec) cin >> e;
-
-    //imprimir datos
-    for (int a : sec) cout << a << " ";
-    cout << endl;
-
-    //resultado
-    cout << (caucasico(sec) ? "SI" : "NO") << endl;
+    cout << resolver(sec, 0, n) << endl;
     return true;
 }
 

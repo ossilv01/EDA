@@ -7,16 +7,21 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-
 using namespace std;
 
 
 bool RECcaucasico(vector<int>& v, int ini, int fin, int &cont) {
     int n = fin - ini;
-    //casos criticos/base
-    if (n == 0) return false; 
-    //1 elemento
-    if (ini == fin-1) return true;
+
+    //caso 1 solo elemento, donde por el enunciado es caúcasico
+    if (ini == fin-1)  return true;
+
+    //solo pueden ser caucasicos aquellos que tengan 2^n tamaño, no impares, no pares como 6,10, no negativos
+    int a = v.size();
+    //comparacion de valor con su anterior con puerta AND
+    if (a < 0 || (a & (a - 1)) != 0) {
+        return false;
+    }
 
     //rango de busqueda por segmenetos que actualiza
     int mitad = (ini+fin)/2;
@@ -31,17 +36,11 @@ bool RECcaucasico(vector<int>& v, int ini, int fin, int &cont) {
         if (v[i] % 2 == 0 && i >= mitad) contadcha++;
         else if (v[i] % 2 == 0 && i < mitad) contaizq++;
     }
-    if (contaizq == 0 && contadcha == 0) {
+    //por si el vector esta totalmente lleno de elementos impares
+    contador = contaizq + contadcha; 
+    if (contador == 0) {
         return false; 
     }
-
-   /* for (int i = ini; i < fin; i++) {
-        if (v[i] % 2 == 0) contador++;
-        if (i >= mitad) contadcha++;
-        else contaizq++;
-    }*/
-    //si no hay pares en algun lado (dcho o izq) =  NO ES CAUCASICO
-    //if (contador == 0) return false;
 
     //Comprobacion recursiva
     bool izq = RECcaucasico(v, ini, mitad, contaizq);
@@ -73,8 +72,8 @@ bool resuelveCaso() {
     for (int& e : sec) cin >> e;
 
     //imprimir datos
-    for (int a : sec) cout << a << " ";
-    cout << endl;
+    //for (int a : sec) cout << a << " ";
+    //cout << endl;
 
     //resultado
     cout << (caucasico(sec) ? "SI" : "NO") << endl;

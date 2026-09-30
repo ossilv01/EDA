@@ -1,7 +1,6 @@
 //Oscar Silva Urbina
 //Coste: O(nlogn) 
 
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -11,20 +10,18 @@ using namespace std;
 // función que resuelve el problema
 bool resolver(const vector<int>& v, int ini, int fin) {
     int n = fin - ini; 
-    int mitad = ini + (fin - ini) / 2;
     //Caso vacio
     if (n == 0) return false; 
     //Caso 1 solo elemento, verifica si es 0
-    if (ini == fin - 1 && v[ini] == 0)
-        return true;
-    //Resto casos: 
-    if (v[fin - 1] != fin - 1) {
-        fin--;
-        return resolver(v, ini, fin);
-    }
-    else return true; 
+    if (n == 1) return (v[ini] == ini);
 
-    return false;
+    //Resto casos: 
+    int mitad = (ini + fin) / 2;
+    
+    bool ladoizq = resolver(v, ini, mitad);
+    bool ladodcha = resolver(v, mitad, fin);
+    return ladoizq || ladodcha;
+
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -35,8 +32,8 @@ void resuelveCaso() {
     cin >> n;
     vector<int> sec(n);
     for (int& e : sec) cin >> e;
-    for (int a : sec) cout << a << " ";
-    cout << endl; 
+    //for (int a : sec) cout << a << " ";
+    //cout << endl; 
     cout << (resolver(sec, 0, n) ? "SI" : "NO") << endl;
 }
 

@@ -9,7 +9,7 @@ using namespace std;
 
 // función que resuelve el problema
 int minimo(const vector<int>& sec, int ini, int fin) {
-    ...
+    
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

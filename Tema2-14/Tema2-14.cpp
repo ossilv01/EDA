@@ -1,5 +1,5 @@
 // Oscar Silva Urbina
-//Coste: 
+//Coste: O(nlogn)
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -10,15 +10,25 @@ using namespace std;
 // función que resuelve el problema
 int ultimo(vector <int> &sec, int ini, int fin) {
     int mitad = (ini + fin) / 2;
-    int n = fin - ini;
+    int n = fin - ini; 
     //Caso base 1 elemento en vector
     if (n == 1) return sec[ini];
-    int pivote = sec[ini];
+    int pivote = sec[mitad];
 
-    int der = ultimo(sec, ini, mitad);
-    int izq = ultimo(sec, mitad, fin);
+    //2 llamadas recursivas:
+    //int der = ultimo(sec, mitad, fin);
+    //int izq = ultimo(sec, ini, mitad);
+    //if (pivote - 1 != izq) pivote = izq;
+    //else if (pivote + 1 == der) pivote = der;
 
-    return 0; 
+    //return pivote;
+
+
+    //O una llamada recursiva u otra
+    if (pivote - 1 != sec[mitad - 1]) {
+        return ultimo(sec, ini, mitad);
+    }
+    else  return ultimo(sec, mitad, fin); 
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -29,8 +39,8 @@ void resuelveCaso() {
     cin >> n; 
     vector <int> sec(n);
     for (int& a : sec)  cin >> a;
-    for (int b : sec) cout << b << " ";
-    cout << endl; 
+    //for (int b : sec) cout << b << " ";
+    //cout << endl; 
     cout << ultimo(sec, 0, n) << endl; 
 }
 

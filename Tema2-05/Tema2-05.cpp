@@ -16,12 +16,12 @@ bool RECcaucasico(vector<int>& v, int ini, int fin, int &cont) {
     //caso 1 solo elemento, donde por el enunciado es caúcasico
     if (ini == fin-1)  return true;
 
-    //solo pueden ser caucasicos aquellos que tengan 2^n tamaño, no impares, no pares como 6,10, no negativos
-    int a = v.size();
-    //comparacion de valor con su anterior con puerta AND
-    if (a < 0 || (a & (a - 1)) != 0) {
-        return false;
-    }
+    ////solo pueden ser caucasicos aquellos que tengan 2^n tamaño, no impares, no pares como 6,10, no negativos
+    //int a = v.size();
+    ////comparacion de valor con su anterior con puerta AND
+    //if (a < 0 || (a & (a - 1)) != 0) {
+    //    return false;
+    //}
 
     //rango de busqueda por segmenetos que actualiza
     int mitad = (ini+fin)/2;
@@ -37,10 +37,10 @@ bool RECcaucasico(vector<int>& v, int ini, int fin, int &cont) {
         else if (v[i] % 2 == 0 && i < mitad) contaizq++;
     }
     //por si el vector esta totalmente lleno de elementos impares
-    contador = contaizq + contadcha; 
+   /* contador = contaizq + contadcha; 
     if (contador == 0) {
         return false; 
-    }
+    }*/
 
     //Comprobacion recursiva
     bool izq = RECcaucasico(v, ini, mitad, contaizq);

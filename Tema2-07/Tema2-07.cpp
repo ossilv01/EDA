@@ -1,5 +1,5 @@
 //Oscar Silva Urbina
-//Coste: 
+//Coste: O(nlogn)
 
 #include <iostream>
 #include <iomanip>
@@ -9,7 +9,19 @@ using namespace std;
 
 // función que resuelve el problema
 int minimo(const vector<int>& sec, int ini, int fin) {
-    
+    int mitad = (ini + fin) / 2;
+    int n = fin - ini; 
+    //Caso un solo elemento
+    if (n == 1) return sec[ini];
+
+    int pivote = sec[mitad];
+    int izq = minimo(sec, ini, mitad);
+    int dcha = minimo(sec, mitad, fin);
+    if (pivote > izq) pivote = izq;
+    else if (pivote > dcha) pivote = dcha;
+
+
+    return pivote;
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

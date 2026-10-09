@@ -26,7 +26,8 @@ int ultimo(vector <int> &sec, int ini, int fin) {
     //Ejemplo: (1,2,24,25,78) Ya que se menciona que empieza de manera ascendente
     //asi que la primera secuencia es la que importa, y de ahi se puede aplicar
     //la logica de que si el valor que tiene no es equivalente al del valor
-    // que se supone que tiene que tener por la posicion que es, da igual si es que es uno menos que el anterior
+    // que se supone que tiene que tener por la posicion que tiene RESPECTO AL SEC[0] 
+    // ES DECIR EL, ELEMENTO INCIAL DEL VECTOR, da igual si es que es uno menos que el anterior
     // no es LA SECUENCIA que estamos contando 
 
    /* if (pivote - 1 != sec[mitad - 1]) {

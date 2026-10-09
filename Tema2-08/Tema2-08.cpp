@@ -9,9 +9,19 @@ using namespace std;
 
 // función que resuelve el problema
 int minimo(const vector<int>& sec, int ini, int fin) {
-    
+    int n = fin - ini; 
+    //caso solo 1 elemento + recursion
+    if (n == 1) return sec[ini];
+    int mitad = (ini + fin) / 2;
 
-    return 0; 
+    //caso de que el de la mitad justamente sea el elemento mas pequeño
+    if (sec[mitad] < sec[mitad +1] && sec[mitad] < sec[mitad -1]) return sec[mitad];
+
+    //CUIDADO LLAMA AL METODO
+    if (sec[mitad] > sec[fin-1]) {
+         return (sec, ini, mitad);
+    }
+    else return minimo(sec, mitad, fin);
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
@@ -22,9 +32,9 @@ void resuelveCaso() {
     cin >> n;
     vector<int> sec(n);
     for (int& e : sec) cin >> e;
-    for (int& b : sec) cout << b << " ";
-    cout << endl;
-    //cout << minimo(sec, 0, n) << endl;
+    //for (int& b : sec) cout << b << " ";
+    //cout << endl;
+    cout << minimo(sec, 0, n) << endl;
 }
 
 int main() {

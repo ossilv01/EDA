@@ -1,5 +1,5 @@
 //Oscar Silva Urbina
-//Coste: 
+//Coste: O(log n) 
 
 #include <iostream>
 #include <iomanip>
@@ -14,14 +14,31 @@ int minimo(const vector<int>& sec, int ini, int fin) {
     if (n == 1) return sec[ini];
     int mitad = (ini + fin) / 2;
 
-    //caso de que el de la mitad justamente sea el elemento mas pequeño
-    if (sec[mitad] < sec[mitad +1] && sec[mitad] < sec[mitad -1]) return sec[mitad];
-
-    //CUIDADO LLAMA AL METODO
-    if (sec[mitad] > sec[fin-1]) {
-         return (sec, ini, mitad);
+    if (sec[mitad] < sec[ini]) {
+        return minimo(sec, mitad, fin);
     }
-    else return minimo(sec, mitad, fin);
+    else return minimo(sec, ini, mitad);
+
+    //caso de que el de la mitad justamente sea el elemento mas pequeño
+ //if (sec[mitad] < sec[mitad +1] && sec[mitad] < sec[mitad -1]) return sec[mitad];
+
+ ////caso primero
+ //if (sec[ini] < sec[ini + 1] && sec[ini] < sec[fin - 1]) return sec[ini];
+
+ ////caso ultimo 
+ //if (sec[fin - 1] < sec[fin - 2] && sec[fin - 1] < sec[ini]) return sec[fin-1];
+
+ //recursion
+    //if (sec[mitad] < sec[ini]) {
+    //    return minimo(sec, mitad, fin);
+    //}
+    //else return minimo(sec, ini, mitad);
+
+    //if (sec[mitad] > sec[fin - 1]) {
+    //    return minimo(sec, ini, mitad);
+    //}
+    //else return minimo(sec, mitad, fin);
+
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

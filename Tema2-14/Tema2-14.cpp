@@ -1,5 +1,5 @@
 // Oscar Silva Urbina
-//Coste: O(nlogn)
+//Coste: O(logn)
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -9,26 +9,31 @@ using namespace std;
 
 // función que resuelve el problema
 int ultimo(vector <int> &sec, int ini, int fin) {
-    int mitad = (ini + fin) / 2;
     int n = fin - ini; 
     //Caso base 1 elemento en vector
     if (n == 1) return sec[ini];
-    int pivote = sec[mitad];
-
-    //2 llamadas recursivas:
-    //int der = ultimo(sec, mitad, fin);
-    //int izq = ultimo(sec, ini, mitad);
-    //if (pivote - 1 != izq) pivote = izq;
-    //else if (pivote + 1 == der) pivote = der;
-
-    //return pivote;
-
 
     //O una llamada recursiva u otra
-    if (pivote - 1 != sec[mitad - 1]) {
-        return ultimo(sec, ini, mitad);
+    int mitad = (ini + fin) / 2;
+    if (sec[mitad] == sec[0] + mitad) {
+        //mira derecha
+        return ultimo(sec, mitad, fin);
     }
-    else  return ultimo(sec, mitad, fin); 
+    //mira izquierda
+    else return ultimo(sec, ini, mitad);
+    
+    //Esta genial, pero, habria un problema si hubiese otra supuesta secuencia en el vector
+    //Ejemplo: (1,2,24,25,78) Ya que se menciona que empieza de manera ascendente
+    //asi que la primera secuencia es la que importa, y de ahi se puede aplicar
+    //la logica de que si el valor que tiene no es equivalente al del valor
+    // que se supone que tiene que tener por la posicion que es, da igual si es que es uno menos que el anterior
+    // no es LA SECUENCIA que estamos contando 
+
+   /* if (pivote - 1 != sec[mitad - 1]) {
+        return ultimo(sec, ini, mitad);
+       
+    }
+    else  return ultimo(sec, mitad, fin); */
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la

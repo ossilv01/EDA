@@ -19,6 +19,13 @@ bool resolver(const vector <int> &sec, int num, int ini, int fin) {
     //caso elemento encontrado en mitad. Solo revisa por si da SI
     if (sec[mitad] == num) return true;
 
+    //Vector Ordenado Rotado. AL MENOS 1 de las 2 mitades estará correctamente ORDENADA
+    //Ej: (22, 2, 4 ,8) 
+    // Mitad Izq: MAL    Mitad Dcha: BIEN
+    //Comparamos inicio y mitad: 1º Comprobante
+    //Revisamos si valor buscado esta dentro de ese rango, si no es asi, es que esta en el lado DCHO
+
+    // Lado izq bien ordenado. Lado dcho rotado
     if (sec[ini] <= sec[mitad]) {
         if (num >= sec[ini] && num < sec[mitad]) {
             return resolver(sec, num, ini, mitad);
@@ -26,6 +33,7 @@ bool resolver(const vector <int> &sec, int num, int ini, int fin) {
         else return resolver(sec, num, mitad+1, fin);
     }
     else {
+    // Lado dcho bien ordenado. Lado izq rotado
         if (num > sec[mitad] && num <= sec[fin - 1]) {
             return resolver(sec, num, mitad+1, fin);
         }

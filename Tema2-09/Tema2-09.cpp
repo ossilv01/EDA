@@ -10,8 +10,9 @@ using namespace std;
 // función que resuelve el problema
 bool resolver(const vector <int> &sec, int num, int ini, int fin) {
     int n = fin - ini; 
-    //caso base 
+    //No esta num en el vector y ademas se combina con elcaso n=2 que deriva en un n=0. Por eso daba un time limit
     if (n == 0) return false; 
+    //Caso base 1 elemento
     if (n == 1) return sec[ini] == num;
 
     int mitad = (ini + fin) / 2; 

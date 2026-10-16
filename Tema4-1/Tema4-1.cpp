@@ -3,8 +3,8 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "Set.h"
 #include <string>
+#include "Set.h"
 #include <cmath>
 using namespace std; 
 
@@ -58,7 +58,7 @@ string resolver_rec(string num, Set<string>& s, vector <string> v) {
     return resolver_rec(num,s,v);
 }
 
-string resolver(string num) {
+string esFeliz(string num) {
     Set<string>s;
     vector<string> pasos;
     return resolver_rec(num, s, pasos);
@@ -75,7 +75,7 @@ bool resuelveCaso() {
     if (!std::cin)
         return false;
 
-    cout << resolver(num) << endl;
+    cout << esFeliz(num) << endl;
     //Set(int n) s = resolver(datos);
     // escribir sol
     return true;

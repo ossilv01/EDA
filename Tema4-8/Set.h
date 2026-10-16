@@ -63,24 +63,12 @@ public:
         return *this;
     }
 
-    Set<T>& operator-(const Set<T>& s1,const Set<T>& s2) {
-        set<T> resultado;
+    Set<T> operator-(const Set<T>& other) const {
+        Set<T> resultado;
 
-        if (s1.empty()) {
-            return resultado;
-        }
-
-        for (int i = 0; i < s1.nelems; i++) {
-            bool existeEnS2 = false;
-            for (int j = 0; j < s2.nelems; j++) {
-                if (s1.array[i] == s2.array[j]) {
-                    existeEnS2 = true;
-                    break;
-                }
-            }
-            // Si no está en s2, pertenece a la diferencia de conjuntos
-            if (!existeEnS2) {
-                resultado.insert(s1.array[i]); // Cambia .insert por el método que uses para añadir elementos
+        for (int i = 0; i < this->nelems; i++) {
+            if (!other.contains(this->array[i])) {
+                resultado.add(this->array[i]); 
             }
         }
         return resultado;
@@ -249,35 +237,12 @@ protected:
 
 template <class T>
 ostream& operator<<(ostream& out, Set<T> const& set) {
-    out << "{";
-    for (int i = 0; i < set.nelems-1; i++)
-        out << set.array[i] << ",";
-    if (set.nelems > 0) out << set.array[set.nelems-1];
-    out << "}";
+    for (int i = 0; i < set.nelems; i++) {
+        if (i > 0) {
+            out << " "; 
+        }
+        out << set.array[i];
+    }
     return out;
-}
-
-template <class T>
-ostream& operator-(const Set<T>& s1, const Set<T>& s2) {
-    set<T> resultado;
-
-    if (s1.empty()) {
-        return resultado;
-    }
-
-    for (int i = 0; i < s1.nelems; i++) {
-        bool existeEnS2 = false;
-        for (int j = 0; j < s2.nelems; j++) {
-            if (s1.array[i] == s2.array[j]) {
-                existeEnS2 = true;
-                break;
-            }
-        }
-        // Si no está en s2, pertenece a la diferencia de conjuntos
-        if (!existeEnS2) {
-            resultado.insert(s1.array[i]); // Cambia .insert por el método que uses para añadir elementos
-        }
-    }
-    return resultado;
 }
 #endif //SET_H

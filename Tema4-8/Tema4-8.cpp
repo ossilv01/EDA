@@ -4,8 +4,9 @@
 #include <fstream>
 #include "Set.h"
 using namespace std;
-//Coste: 
-
+//Coste: O(n * log(m), donde n es el numero de elemenetos de set1 y m el de set2
+//Se trata de un O(n) por que recorremos todos los elementos del primer set
+//Y luego al llamar al contains, se utiliza una busqueda binaria, derivando en un coste de O(log(m))
 
 
 // Resuelve un caso de prueba, leyendo de la entrada la

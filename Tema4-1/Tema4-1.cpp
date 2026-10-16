@@ -24,43 +24,51 @@ using namespace std;
 //}
 
 //Version string
-string resolver(string num) {
-    Set<string>s;
-    
+string resolver_rec(string num, Set<string>& s, vector <string> v) {
+    v.push_back(num);
     //ver si ya esta contenido
     if (s.contains("1")) {
-        return num + "1";
+        string resultado = "";
+        for (int i = 0; i < v.size(); i++) {
+            resultado += v[i] + (i == v.size() - 1 ? " 1" : " ");
+        }
+        return resultado;
     }
 
     //ver si se repite numero, si asi es numero infeliz
     if (s.contains(num)) {
-        return num + "0";
+        string resultado = "";
+        for (int i = 0; i < v.size(); i++) {
+            resultado += v[i] + " ";
+        }
+        return resultado + "0";
     }
 
     s.add(num);
 
-    vector <int> cifras; 
+    //separar cifras y elevar al cuadrado
+    int aux = 0;
     for (char c : num) {
         if (isdigit(c)) {
             int cifra = c - '0';
-            cifras.push_back(cifra);
+            aux += pow(cifra, 2);
         }
     }
-    int aux = 0; 
-    for (int i = 0; i < cifras.size(); i++) {
-        cifras[i] = pow(cifras[i], 2);
-        aux += cifras[i];
-    }
     num = to_string(aux);
-    return resolver(num);
+    return resolver_rec(num,s,v);
+}
+
+string resolver(string num) {
+    Set<string>s;
+    vector<string> pasos;
+    return resolver_rec(num, s, pasos);
 }
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 bool resuelveCaso() {
     // leer los datos de la entrada
-    //int num;
-    //cin >> num;
+    
     //version string
     string num;
     cin >> num;

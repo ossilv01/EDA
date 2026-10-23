@@ -6,7 +6,7 @@
 #include <fstream>
 
 
-
+using namespace std;
 // función que resuelve el problema
 //TipoSolucion resolver(TipoDatos datos) {
 //
@@ -20,10 +20,11 @@ bool resuelveCaso() {
 
     if (!std::cin)
         return false;
-
+    string a; 
+    cin >> a;
 
     //TipoSolucion sol = resolver(datos);
-
+    cout << a << endl;
     // escribir sol
 
 

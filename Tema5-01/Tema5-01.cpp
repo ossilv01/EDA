@@ -1,7 +1,6 @@
 // Nombre del alumno .....
 // Usuario del Juez ......
 
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -9,10 +8,10 @@
 
 
 // función que resuelve el problema
-TipoSolucion resolver(TipoDatos datos) {
-
-
-}
+//TipoSolucion resolver(TipoDatos datos) {
+//
+//
+//}
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
@@ -22,7 +21,8 @@ bool resuelveCaso() {
     if (!std::cin)
         return false;
 
-    TipoSolucion sol = resolver(datos);
+
+    //TipoSolucion sol = resolver(datos);
 
     // escribir sol
 

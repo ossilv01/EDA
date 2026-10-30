@@ -10,7 +10,21 @@ class list_plus : public list<T> {
     using Nodo = typename list<T>::Nodo;
 
 public:
-    void adelantar(int pos, int length, int newPos) {
+    void adelantar(int pos, int length, int k) {
+        int n = this->nelems;
+
+        // si la lista está vacía, k o length son 0, o pos es inválida, no tiene efecto
+        if (n == 0 || k == 0 || length == 0 || pos >= n) return;
+
+        // si el segmento se sale de la lista, se toma hasta el final
+        if (pos + length > n) {
+            length = n - pos;
+        }
+
+        // si la posición de destino calculada (adelantar k posiciones) es menor que 0, es inválida
+        int dest_pos = pos - k;
+        if (dest_pos < 0) return;
+
     }
 };
 
@@ -29,7 +43,7 @@ void resuelveCaso() {
         l.push_back(e);
     }
 
-    l.adelantar(...);
+    l.adelantar(pos, length, dif);
 
     // Le damos una vuelta para comprobar que la lista está bien formada
     for (int i = 0; i < l.size(); ++i) {

@@ -1,4 +1,5 @@
 //Oscar Silva Urbina
+// Usuario: EDA63
 //Coste: O(n) Debido a las busquedas lineales que se realizan hasta encontrar los valores de A y B
 //donde pues se observa el peor caso de que recorra de principio a fin. 
 //Contamos tambien la accion de reenlazado de nodos, pero que se trata de asignaciones directtas es decir que son de O(1)

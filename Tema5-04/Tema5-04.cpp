@@ -12,6 +12,26 @@ class queue_plus : public queue<T> {
 public:
     void duplica() {
         // Ojo que para acceder a prim o ult hay que escribir this->prim o this->ult
+        if (this->prim == nullptr)return;
+
+        Nodo* prim = this->prim;
+
+        while (prim != nullptr) {
+            //clave para crear nuevo nodo que conecte
+            Nodo* postelem = prim->sig;
+            Nodo* clon = new Nodo(prim->elem);
+            prim->sig = clon; 
+            clon->sig = postelem;
+
+            //clave para ulitmo elemento
+            if (prim == this->ult) {
+                this->ult = clon;
+            }
+            prim = postelem;
+            //clave para aumentar tamaño
+            this->nelems++;
+        }
+     
     }
 };
 

@@ -11,13 +11,43 @@ Qué has conseguido hacer y qué no:
 #include <iomanip>
 #include <fstream>
 #include "bintree_eda.h"
-
+//Ayuda:
+#include <algorithm>
 using namespace std;
 
 
+struct Resultado {
+    int enanos;
+    string lider;
+};
 // función que resuelve el problema y justificación del coste
 
+Resultado viaje(bintree<string> const& arbol) {
 
+    //Casos base:
+    //Vacio:
+
+    if (arbol.empty()) {
+        return { 0, " " };
+    }
+
+    //Nodo hoja (aldea de enanos)
+    if (arbol.left().empty() && arbol.right().empty()) {
+        return { 1, arbol.root() };
+    }
+
+    //Procesamiento PostOrden Resolver recursivamente
+
+
+    //1.Unión caminos/grupos enanos
+    //asignación
+
+
+    //2. Evento del nodo actual
+        //Division entera y grupo desaparece
+
+
+}
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
@@ -25,8 +55,16 @@ void resuelveCaso() {
     bintree<string> a = leerArbol(string("."));
 
     // Llamada a la función
-
+    Resultado viaje_final= viaje(a);
     // Escritura del resultado
+
+    if (viaje_final.enanos == 0) {
+       cout << "Ninguno\n";
+    }
+    else {
+        cout << viaje_final.lider << " " << viaje_final.enanos << "\n";
+    }
+    
 
 }
 

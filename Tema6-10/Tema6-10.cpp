@@ -1,9 +1,9 @@
 /*
-Nombre completo:
-DNI:
-Usuario del juez:
-Puesto de laboratorio:
-Qué has conseguido hacer y qué no:
+Oscar Silva Urbina
+EDA63
+Coste:
+El coste es de O(n) siendo n el numero de nodos, pues se visita cada uno de los nodos del arbol una vez
+y se realizan operaciones de coste constante O(1) sobre ellos. 
 */
 
 
@@ -11,43 +11,71 @@ Qué has conseguido hacer y qué no:
 #include <iomanip>
 #include <fstream>
 #include "bintree_eda.h"
-//Ayuda:
-#include <algorithm>
+
 using namespace std;
 
 
 struct Resultado {
-    int enanos;
-    string lider;
+    int enanos; //tamaño grupo
+    string lider; //lider actual del grupo
 };
-// función que resuelve el problema y justificación del coste
 
+
+//funcion que calcula el nodo de union entre enanos
+Resultado unirGrupos(Resultado const& izq, Resultado const& dcha) {
+    //si uno de los grupos desaparece, sobrevive el otro
+    if(izq.enanos == 0) return dcha;
+    if (dcha.enanos == 0) return izq;
+
+    Resultado res;
+    //nuevo gruupo resultado de union enanos ambos grupos
+    res.enanos = izq.enanos + dcha.enanos;
+
+    //Decision de lider = el grupo más numerosos
+    if (izq.enanos > dcha.enanos)
+        res.lider = izq.lider;
+    else if (dcha.enanos > izq.enanos)
+        res.lider = dcha.lider;
+    else
+        //si emapatan, es el menor alfabeticamente
+        res.lider = min(izq.lider, dcha.lider);
+
+    return res;
+}
+
+// función que resuelve el problema y justificación del coste
 Resultado viaje(bintree<string> const& arbol) {
 
-    //Casos base:
-    //Vacio:
+    //Casos base vacio
 
     if (arbol.empty()) {
         return { 0, " " };
     }
 
-    //Nodo hoja (aldea de enanos)
+    //Caso base nodo hoja, 1 solo enano
     if (arbol.left().empty() && arbol.right().empty()) {
         return { 1, arbol.root() };
     }
 
-    //Procesamiento PostOrden Resolver recursivamente
+ 
+    Resultado izq = viaje(arbol.left());
+    Resultado der = viaje(arbol.right());
 
+    //Nodo de unin
+    Resultado res = unirGrupos(izq, der);
 
-    //1.Unión caminos/grupos enanos
-    //asignación
+    // si hay orcos, los enanos pierden lamitad
+    if (arbol.root() == "Orcos") {
 
+        res.enanos /= 2;
+        //si no queda ningun enano el grupo desaparece
+        if (res.enanos == 0)
+            return { 0, "" };
+    }
 
-    //2. Evento del nodo actual
-        //Division entera y grupo desaparece
-
-
+    return res;
 }
+
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
 void resuelveCaso() {
@@ -57,12 +85,12 @@ void resuelveCaso() {
     // Llamada a la función
     Resultado viaje_final= viaje(a);
     // Escritura del resultado
-
+    //caso base ningun enano
     if (viaje_final.enanos == 0) {
-       cout << "Ninguno\n";
+       cout << "Ninguno" << endl;
     }
     else {
-        cout << viaje_final.lider << " " << viaje_final.enanos << "\n";
+        cout << viaje_final.lider << " " << viaje_final.enanos << endl;
     }
     
 

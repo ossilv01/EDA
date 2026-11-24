@@ -1,0 +1,158 @@
+Implementacion tablas Hash: 
+
+La funcion 'hash' devuelve un número, al que después le aplicaremos el módulo (array.size()) el cual me
+devolverá un número entero en el rango correposdiente.
+
+Manejar las 'colisiones' = Estrategia de tablas abiertas. Almacenar Listas de parejas (nodos enlazados)
+
+Unordered_Map:
+________________________________________________________
+//Key y Val son los 2 parametros obligatorios de la plantilla
+//instanciamos con string e int
+//Opcionalmente tengo la posibilidad de proporcionar una funcion hash o objeto funcion con la funcion hash
+//y tambien un objeto funcion con el operador de == para las claves
+//Si no los pasamos, el compilador utilizara la funcion hash y el operador == del tipo <Key>. Por ejemplo con string, con el que no hay ningun problema
+//La pega: Si la clave no es un string, un entero o un tipo base en general, tendremos que proporcionar una función hash
+
+template <class Key, class Val, class Hash = std::hash<Key>, 
+	 class Pred = std::equal_to<Key>>
+
+class unordered_map{
+public:
+   //Definicion clave valor
+    using clave_valor = pair<const Key, Val>;
+protected:
+  
+   //Dentro de esos nodos se almacenan parejas clave valor
+   struct ListNode {
+     clave_valor cv; 
+     Link sig;
+     ListNode (clave_valor const&e, Link s = nullptr) : cv(e), sig (s) {}
+    };
+    using Link = ListNode* //Alias
+   
+    static const int TAM_INICIAL = 16; //Es mejor utilizar numeros primos = Teoria matemática por detrás
+    static const int MAX_CARGA = 75; //máximo porcentaje de ocupación permitido
+
+
+    vector<Link> array; //vector de punteros a nodos (de listas[enlaces]) 
+    int nelems;  //NO es el size del vector, ES el numero de parejas (pair)
+    //Objetos funcion: Acceso rápido de tener
+    Hash hash;   //Funcion de hash
+    Pred pred;   //Operador de comparacion "==". Para comparar claves
+}
+
+Construcción y destrucción:
+__________________________
+Se le puede pasar (opcional): 
+	Tamaño inicial, decir desde cuando empiezas para evitar redimensiones.
+	Funcion Hash.
+
+unordered_map(int n = TAM_INICIAL, Hash h = Hash(), Pred p= Pred()):
+	array(n, nullptr), nelems(0), hash(h), pred(p) {}
+
+//Se inicializa vector(nombre 'array') tam n, con nullptr, e inicializacion de demás.
+//Tabla vacia, vector donde todos serán nulos
+
+~unordered_map () {libera()};
+//Borrado de lista enlazada
+
+//Bucle para recorrer vector de listas
+for (int i = 0; i < arrays.size(); i++){
+// Y se va haciendo un borrado usando Nodos en esas listas
+	Link act = array[i]
+	while (act != nullptr){
+		Link aux = act;
+		act = act -> sig; 
+		delete aux; 
+	}
+    array[i] = nullptr;
+}
+
+Localización [función auxiliar]:
+_____________________________________
+Intro: La Búsqueda se basa en 2 pasos. Encontrar el grupo en el que estoy (lo hace hash()), y 
+luego busqueda lineal del nodo que contiene la clave que estoy buscando.
+
+Buscar nodo con clave dada. Busqueda lineal en listas
+Se devuelve puntero al nodo buscado (nullptr si no se encuentra)
+ y un puntero al nodo anterior (necesario para la eliminacion)
+
+
+bool localizar(Key const&c, Link& ant, Link& pos) const {// pos = primero de la lista correspondiente
+  ant = nullptr;
+  while (pos != nullptr) {
+     if (pred(c, pos->cv.fisrt)) return true //recordatorio de que pred es un objeto funcion de comparación "==" 
+     else {
+//incremento
+      ant = pos; pos = pos->sig;
+    }
+  }
+  return false;
+}
+
+Inserción y borrado:
+_______________________________
+bool insert(clave_valor const& cv) {
+	int i = hash(cv.fisrt) % array.size();
+	Link ant, pos = array[i]
+	Lo primero: Ver si es que ya existe la clave, si es asi, se aborta. [return false]
+	en caso contrario
+	{
+	Lo segundo: Ver si supera la tasa de ocupación o no, en caso positivo, se redimensiona.
+	
+	Insertar por el principio 
+	Crear nuevo nodo. Le digo que apunte a array[i]
+	array [i] = new ListNode(cv, array[i]);
+	++nelems;
+	return true;
+    }
+}
+
+Para borrar: 
+bool erase(Key const& c) 
+//misma inicio, declarando indice, nodos anterior y posicion
+	int i = hash(c) % array.size();
+	Link ant, pos = array[i];
+//usamos funcion bool localizar
+	if (localizar(c, ant, pos)){
+	if (ant == nullptr) //si el nodo que justo busco es el primero de la lista
+		array[i] = pos->sig;
+	else
+		ant->sig = pos->sig; //nueva asignacion para el siguiente del anterior
+	delete pos; //se borra pos
+	--nelems;
+	return true;
+	} else
+     return false;
+}
+Ejemplo:m.erase("Violet");
+
+Operaciones at y []
+_____________________________
+
+El at devuelve el segundo elemento de la clave, dado el primer elemento como argumento del metodo
+Val const& at(Key const& c) const{
+	int i = hash(c) % array.size();
+	Link ant, pos = array[i];
+//usamos funcion bool localizar
+	if (localizar(c, ant, pos)) return pos->cv.second;
+	else throw out_of_range("No se encuentra");
+}
+
+El operator[] 
+Val& operator[](Key const& c){
+//Igual que "at"
+	int i = hash(c) % array.size();
+	Link ant, pos = array[i];
+	if (localizar(c, ant, pos)) return pos->cv.second;
+//Revisar tasa de ocupacion y redimensionar en caso necesario
+//Más soporte para inserción (por la izquierda)
+	}else {
+	//La diferencia con el caso de insert, es que necesito crear un valor por defecto llamando al 
+	//constructor por defecto de lo que sea la clave. En este caso, creamos un string vacio 
+	array[i] = new ListNode(clave_valor(c, Val()), array[i]);
+	nelems++;
+	//lo coloco
+	return array[i]->cv.second;
+}

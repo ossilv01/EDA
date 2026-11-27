@@ -26,3 +26,27 @@ void palabras() {
 
 
 }
+__________
+Ejercicio laberinto
+Encontrar la mejor solución (menor camino)
+
+//Argumentos
+void laberintoOp(vector<Point2D>& soluc, int n , int k, Mapa const& muros, 
+	int& mejorLong, vector<Point2D>& mejorSol)
+
+
+//Lógica: 
+//Cambian las cosas cada vez que se encuentra una solucion y si la longitud que acabo que encontrar
+(k) si es mejor lo que tenia hasta el momento, es nueva mejor longitud
+
+Al ser un caso de caracter de optimización, surge la posibilidad de podar ramas que son inútiles
+usar, el valor de la mejor solucion para ver si puedes o no puedes mejorarlo:
+//Donde esta la llamada recursiva y poner condicion para que siga explorando si es que la longitud 
+//de la exploracion que llevas es menor que la mejorLong.
+
+//Sospecha de alejamiento: Cómo de lejos estoy de la salida de la casilla
+int estimacionOptmisita = n-1-pos.x + n-1-pos.y;
+//Si la lonigtud que llevo + estimacionOptimista de lo que me queda, es mayor de la mejor que tenia, no sigas
+
+}
+
